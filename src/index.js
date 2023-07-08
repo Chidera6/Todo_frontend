@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './index.css';
+import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
-
-//window.csrfFetch = csrfFetch;
+import { csrfFetch,restoreCSRF} from './csrf';
+restoreCSRF();
+window.csrfFetch = csrfFetch;
 
 const Root = () => {
   return (
