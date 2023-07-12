@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://todobackend-1ey3.onrender.com',
+      target: 'https://todos-s2mo.onrender.com',
       changeOrigin: true,
     })
   );
