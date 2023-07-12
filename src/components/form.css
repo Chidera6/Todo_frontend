@@ -1,0 +1,34 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2{
+  margin-top: 3rem;
+}
+.input-details input {
+  outline: none;
+  padding: 0.8rem 0.6rem;
+  border: 1px solid #200648;
+  border-radius: 10px;
+  font-size: 16px;
+  letter-spacing: 0.3ch;
+  margin-top: 3rem;
+}
+
+.input-details input:focus {
+  border: 1px solid #430c94;
+}
+
+.form-submit-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: none;
+  background:#430c94;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 3rem;
+}

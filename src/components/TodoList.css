@@ -1,0 +1,101 @@
+.todos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 2rem;
+}
+
+.input-form {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.input-todos {
+  display: flex;
+  align-items: center;  
+}
+
+.input-todos input {
+  outline: none;
+  padding: 0.8rem 0.6rem;
+  border: 1px solid #200648;
+  border-radius: 10px;
+  font-size: 16px;
+  letter-spacing: 0.3ch;
+}
+
+.input-todos input:focus {
+  border: 1px solid #430c94;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: none;
+  background:#430c94;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.todo-item h3 {
+  margin-left: 150px;
+  width: calc(100% - 200px); 
+  text-align: left;
+}
+
+.todo-item p {
+  width: calc(100% - 200px);
+  text-align: left;
+}
+
+
+.todo-item input.todo {
+  margin-left: 10px;
+}
+
+.todo-item .update-button {
+  font-size: large;
+  padding: 7px;
+  outline: none;
+  border: none;
+  border: 1px solid #430c94;
+  background: none;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #430c94;
+  cursor: pointer;
+}
+.todo-buttons{
+  display: flex;
+  gap: 0.7rem;
+  margin-right: 35px;
+}
+.todo-item .delete-button {
+  font-size: large;
+  padding: 7px;
+  outline: none;
+  background: none;
+  background-color: darkred;
+  border: 1px solid white;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+

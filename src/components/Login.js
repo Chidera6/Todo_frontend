@@ -3,52 +3,45 @@ import { useHistory } from 'react-router-dom';
 import { csrfFetch } from '../csrf';
 import "./form.css";
 
-function SignUp({handleLogin}) {
+function Login({handleLogin}) {
   const history = useHistory();
-  const [username, setUserName] = useState('');
-  const [email, setEmail] = useState('');
+  const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
+  const login = async (credential, password) => {
 
-  const signup = async (username, email, password) => {
-    await csrfFetch('api/users/signup', {
+    await csrfFetch('api/users/login', {
       method: 'POST',
-      body: JSON.stringify({ username, email, password })
+      body: JSON.stringify({ credential, password })
     })
       .then((response) => response.json())
       .then((data) => {
-        setUserName('');
-        setEmail('');
+        console.log(data);
+        setCredential('');
         setPassword('');
         handleLogin(data.user);
         history.push('/');
       })
+      .catch((err) => {
+        console.log(err.message);
+     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signup(username, email, password);
+    login(credential, password);
   };
 
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-      <h2>Sign up Form</h2>
+      <h2>Log in Form</h2>
         <div className='input-details'>
           <input
-            id="username"
+            id="credential"
             type="text"
-            onChange={(e) => setUserName(e.target.value)}
-            value={username}
-            placeholder="Username"
-          />
-        </div>
-        <div className='input-details'>
-          <input
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            placeholder="Email"
-            type="text"
+            onChange={(e) => setCredential(e.target.value)}
+            value={credential}
+            placeholder="Username or Email"
           />
         </div>
         <div className='input-details'>
@@ -68,4 +61,4 @@ function SignUp({handleLogin}) {
   );
 }
 
-export default SignUp;
+export default Login;
