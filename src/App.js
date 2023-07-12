@@ -5,7 +5,7 @@ import Login from './components/Login';
 import TodoList from './components/TodoList';
 import './App.css';
 import Logout from './components/Logout';
-import UpdateTodos from './components/UpdateTodos';
+//import UpdateTodos from './components/UpdateTodos';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -60,9 +60,6 @@ function App() {
         <Route path="/log-out">
           <Logout />
         </Route>
-        <Route path="/update-todo/:id">
-          <UpdateTodos user={user} />
-        </Route>  
       </Switch>
     </div>
   );
