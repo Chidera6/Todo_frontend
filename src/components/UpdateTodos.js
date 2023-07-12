@@ -9,9 +9,9 @@ function UpdateTodos({ user }) {
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
 
-  useEffect(() => {
-    fetchTodo();
-  }, []);
+ // useEffect(() => {
+ //   fetchTodo();
+ // }, []);
 
   const fetchTodo = async () => {
     try {
