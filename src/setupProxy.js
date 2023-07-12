@@ -8,4 +8,12 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'https://todobackend-1ey3.onrender.com',
+      changeOrigin: true,
+    })
+  );
 };
