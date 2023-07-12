@@ -9,7 +9,7 @@ function Login({handleLogin}) {
   const [password, setPassword] = useState('');
   const login = async (credential, password) => {
 
-    await csrfFetch('https://todos-s2mo.onrender.com/api/users/login', {
+    await csrfFetch('api/users/login', {
       method: 'POST',
       body: JSON.stringify({ credential, password })
     })
