@@ -14,7 +14,7 @@ export async function csrfFetch(url, options = {}) {
 }
 
 export function restoreCSRF() {
-    return csrfFetch('/api/csrf/restore');
+    return csrfFetch('https://todos-s2mo.onrender.com/api/csrf/restore');
   }
 
 
