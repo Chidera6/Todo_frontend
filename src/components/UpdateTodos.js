@@ -6,16 +6,18 @@ function UpdateTodos({ user }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
-
+  const token = localStorage.getItem('token'); 
+  
   useEffect(() => {
-    fetchTodo();
-  }, []);
+    fetchTodos();
+  }, [user]);
 
-  const fetchTodo = async () => {
+  const fetchTodos = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
         headers: {
-          'user-id': user.id,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
       });
       if (response.ok) {
@@ -34,10 +36,10 @@ function UpdateTodos({ user }) {
   const updateTodo = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'user-id': user.id,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ title, description, completed }),
       });
@@ -53,8 +55,9 @@ function UpdateTodos({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push('/');
     updateTodo();
+    history.push('/');
+    
   };
 
   return (

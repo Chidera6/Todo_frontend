@@ -22,6 +22,7 @@ function SignUp({handleLogin}) {
         setEmail('');
         setPassword('');
         handleLogin(data.user);
+        localStorage.setItem('token', data.token); 
         history.push('/');
       })
   };

@@ -6,7 +6,7 @@ function Logout() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    history.push('/login'); 
+    history.push('/log-in'); 
   };
   return (
     <div>

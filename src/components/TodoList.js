@@ -7,6 +7,7 @@ function TodoList({ user }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
+  const token = localStorage.getItem('token'); 
 
   const addTodo = async (title, description, completed) => {
     try {
@@ -14,7 +15,7 @@ function TodoList({ user }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'user-id': user.id,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ title, description, completed, userId: user.id })
       });
@@ -47,10 +48,9 @@ function TodoList({ user }) {
   const fetchTodos = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/tasks/', {
-        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'user-id': user.id,
+          'Authorization': `Bearer ${token}`,
         },
       });
       if (response.ok) {
@@ -70,7 +70,7 @@ function TodoList({ user }) {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'user-id': user.id,
+          'Authorization': `Bearer ${token}`,
         },
       });
       if (response.ok) {

@@ -21,6 +21,7 @@ function Login({handleLogin}) {
         setEmail('');
         setPassword('');
         handleLogin(data.user);
+        localStorage.setItem('token', data.token); 
         history.push('/');
       })
       .catch((err) => {
@@ -43,7 +44,7 @@ function Login({handleLogin}) {
             type="text"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder="Username or Email"
+            placeholder="Email"
           />
         </div>
         <div className='input-details'>
