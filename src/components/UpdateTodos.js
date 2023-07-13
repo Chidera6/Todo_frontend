@@ -1,26 +1,25 @@
-import React, { useState, /*useEffect*/ } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { csrfFetch } from '../csrf';
-
 function UpdateTodos({ user }) {
-  const { id } = useParams();
+  const { todoId } = useParams();
   const history = useHistory();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
 
- // useEffect(() => {
- //   fetchTodo();
- // }, []);
+  useEffect(() => {
+    fetchTodo();
+  }, []);
 
   const fetchTodo = async () => {
     try {
-      const response = await csrfFetch(`api/tasks/${id}`, {
-        method: 'GET',
+      const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
+        headers: {
+          'user-id': user.id,
+        },
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setTitle(data.title);
         setDescription(data.description);
         setCompleted(data.completed);
@@ -31,15 +30,19 @@ function UpdateTodos({ user }) {
       console.error('Error fetching todo:', error);
     }
   };
-
+  
   const updateTodo = async () => {
     try {
-      const response = await csrfFetch(`api/tasks/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
         method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'user-id': user.id,
+        },
         body: JSON.stringify({ title, description, completed }),
       });
       if (response.ok) {
-        history.push('/');
+        console.log('Todo updated successfully');
       } else {
         throw new Error('Failed to update todo');
       }
@@ -50,47 +53,37 @@ function UpdateTodos({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    history.push('/');
     updateTodo();
   };
 
-  const handleCheckboxChange = () => {
-    setCompleted((prevCompleted) => !prevCompleted);
-  };
-
   return (
-    <div className="update-todos">
-      <h2>Update Todos</h2>
-      <form onSubmit={handleSubmit} className="input-form">
-        <div className='input-todos'>
-          <input
-            id="title"
+    <div className='todos'>
+      <h1>Update Todo</h1>
+        <form className='input-form'  onSubmit={handleSubmit}>
+          <div className='input-todos'>
+            <input
             type="text"
-            onChange={(e) => setTitle(e.target.value)}
             value={title}
-            placeholder="Title"
-          />
-        </div>
-        <div className='input-todos'>
-          <input
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-            placeholder="Description"
+            onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className='input-todos'>
+            <input
             type="text"
-          />
-        </div>
-        <div className='input-todos'>
-          <input
-            id="completed"
-            onChange={handleCheckboxChange}
-            checked={completed}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className='input-todos'>
+            <input
             type="checkbox"
-          />
-        </div>
-        <button className="submit-button" type="submit">
-          Update
-        </button>
-      </form>
+            checked={completed}
+            onChange={(e) => setCompleted(e.target.checked)}
+            />
+          </div>
+          <button className='submit-button' type="submit">Update</button>
+        </form>
     </div>
   );
 }

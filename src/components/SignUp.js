@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { csrfFetch } from '../csrf';
 import "./form.css";
 
 function SignUp({handleLogin}) {
@@ -10,13 +9,16 @@ function SignUp({handleLogin}) {
   const [password, setPassword] = useState('');
 
   const signup = async (username, email, password) => {
-    await csrfFetch('https://todos-s2mo.onrender.com/api/users/signup', {
+    await fetch('http://localhost:5000/api/users/signup', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ username, email, password })
     })
       .then((response) => response.json())
       .then((data) => {
-        setUserName('');
+        setUserName('')
         setEmail('');
         setPassword('');
         handleLogin(data.user);

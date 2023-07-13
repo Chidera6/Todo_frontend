@@ -1,26 +1,18 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { csrfFetch } from '../csrf';
 
 function Logout() {
   const history = useHistory();
-  const handleLogout = async () => {
-    try {
-      const response = await csrfFetch('api/users/logout', {
-        method: 'DELETE', 
-      });
-      history.push('/login'); 
-      if (response.ok) {
-        history.push('/login'); 
-      } else {
-        throw new Error('Logout failed');
-      }
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    history.push('/login'); 
   };
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <div>
+      <h2>Logout</h2>
+      <button className='submit-button' onClick={handleLogout}>Logout</button>
+    </div>
   );
 }
 

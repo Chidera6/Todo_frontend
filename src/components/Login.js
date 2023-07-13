@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { csrfFetch } from '../csrf';
 import "./form.css";
 
 function Login({handleLogin}) {
   const history = useHistory();
-  const [credential, setCredential] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = async (credential, password) => {
+  const login = async (email, password) => {
 
-    await csrfFetch('https://todos-s2mo.onrender.com/api/users/login', {
+    await fetch('http://localhost:5000/api/users/login', {
       method: 'POST',
-      body: JSON.stringify({ credential, password })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setCredential('');
+        setEmail('');
         setPassword('');
         handleLogin(data.user);
         history.push('/');
@@ -28,7 +30,7 @@ function Login({handleLogin}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(credential, password);
+    login(email, password);
   };
 
   return (
@@ -37,10 +39,10 @@ function Login({handleLogin}) {
       <h2>Log in Form</h2>
         <div className='input-details'>
           <input
-            id="credential"
+            id="email"
             type="text"
-            onChange={(e) => setCredential(e.target.value)}
-            value={credential}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             placeholder="Username or Email"
           />
         </div>

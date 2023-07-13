@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { csrfFetch } from '../csrf';
+import { Link } from 'react-router-dom';
 import './TodoList.css';
 
 function TodoList({ user }) {
@@ -8,12 +7,15 @@ function TodoList({ user }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
-  const history = useHistory();
 
   const addTodo = async (title, description, completed) => {
     try {
-      const response = await csrfFetch('api/tasks/create', {
+      const response = await fetch('http://localhost:5000/api/tasks/create', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'user-id': user.id,
+        },
         body: JSON.stringify({ title, description, completed, userId: user.id })
       });
       if (response.ok) {
@@ -39,17 +41,17 @@ function TodoList({ user }) {
   };
 
   useEffect(() => {
-    if (!user) {
-      history.push('/login');
-    } else {
-      fetchTodos();
-    }
-  }, [user, history]);
+    fetchTodos();
+  }, [user]);
 
   const fetchTodos = async () => {
     try {
-      const response = await csrfFetch('api/tasks', {
+      const response = await fetch('http://localhost:5000/api/tasks/', {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'user-id': user.id,
+        },
       });
       if (response.ok) {
         const data = await response.json();
@@ -64,8 +66,12 @@ function TodoList({ user }) {
 
   const handleDelete = async (taskId) => {
     try {
-      const response = await csrfFetch(`api/tasks/${taskId}`, {
+      const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'user-id': user.id,
+        },
       });
       if (response.ok) {
         fetchTodos();
@@ -114,7 +120,7 @@ function TodoList({ user }) {
       {todos.map((todo) => (
         <div key={todo.id} className="todo-item">
           <input type="checkbox" checked={todo.completed} readOnly className='todo'/>
-          <h3 className='todo'>{todo.title}<p>{todo.description}</p></h3>
+          <h3 className='todo'>{todo.title}<p>{todo.description}</p><p>Created on:{todo.createdAt}</p></h3>
           <div className='todo-buttons'>
             <div className='todo'>
               <Link to={`/update-todo/${todo.id}`}>
