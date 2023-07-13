@@ -121,7 +121,7 @@ function TodoList({ user }) {
       {todos.map((todo) => (
         <div key={todo.id} className="todo-item">
           <input type="checkbox" checked={todo.completed} readOnly className='todo'/>
-          <h3 className='todo'>{todo.title}<p>{todo.description}</p><p>Created on:{todo.createdAt}</p></h3>
+          <h3 className='todo'>{todo.title}<p>{todo.description}</p></h3>
           <div className='todo-buttons'>
             <div className='todo'>
               <Link to={`/update-todo/${todo.id}`}>
