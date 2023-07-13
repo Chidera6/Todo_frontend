@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+
 function UpdateTodos({ user }) {
   const { todoId } = useParams();
   const history = useHistory();
@@ -8,13 +9,9 @@ function UpdateTodos({ user }) {
   const [completed, setCompleted] = useState(false);
   const token = localStorage.getItem('token'); 
   
-  useEffect(() => {
-    fetchTodos();
-  }, [user]);
-
   const fetchTodos = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
+      const response = await fetch(`https://todobackend-ew9a.onrender.com/${todoId}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -32,10 +29,15 @@ function UpdateTodos({ user }) {
       console.error('Error fetching todo:', error);
     }
   };
-  
+
+  useEffect(() => {
+    fetchTodos();
+    console.log("use effect is prinitng");
+  }, [user]);
+
   const updateTodo = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/${todoId}`, {
+      const response = await fetch(`https://todobackend-ew9a.onrender.com/${todoId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -56,8 +58,11 @@ function UpdateTodos({ user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateTodo();
-    history.push('/');
-    
+    history.push('/todos'); 
+  };
+
+  const handleCheckboxChange = (e) => {
+    setCompleted(e.target.checked);
   };
 
   return (
@@ -82,7 +87,7 @@ function UpdateTodos({ user }) {
             <input
             type="checkbox"
             checked={completed}
-            onChange={(e) => setCompleted(e.target.checked)}
+            onChange={handleCheckboxChange}
             />
           </div>
           <button className='submit-button' type="submit">Update</button>

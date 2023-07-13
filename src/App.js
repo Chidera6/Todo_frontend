@@ -13,68 +13,15 @@ function App() {
     setUser(loggedInUser);
   };
   const handleLogout = () => {
-  setUser(null);
+    setUser(null);
   };
-  
   return (
     <div>
-      <nav className="nav-bar">      
-        <button>
-          <NavLink exact to="/" className="nav-link" activeClassName="active-link">
-            To dos
-          </NavLink>
-        </button>
-        <button>
-          <NavLink to="/log-out" className="nav-link" activeClassName="active-link">
-            Log out
-          </NavLink>
-        </button>
-      
-        <button>
-          <NavLink to="/sign-up" className="nav-link" activeClassName="active-link">
-            Sign Up
-          </NavLink>
-        </button>
-        <button>
-          <NavLink to="/log-in" className="nav-link" activeClassName="active-link">
-            Login
-          </NavLink>
-        </button>
-      
-      
-      </nav>
-      <Switch>
-        <Route exact path="/">
-          <TodoList user={user} />
-        </Route>
-        <Route path="/update-todo/:todoId">
-          <UpdateTodos user={user} />
-        </Route>
-        <Route path="/sign-up">
-          <SignUp handleLogin={handleLogin} />
-        </Route>
-        <Route exact path="/log-in">
-          <Login handleLogin={handleLogin} />
-        </Route>
-        <Route path="/log-out">
-          <Logout handleLogout={handleLogout}/>
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-
-export default App;
-
-
-/*
-<div>
       <nav className="nav-bar">
       {user ? (
       <>
         <button>
-          <NavLink exact to="/" className="nav-link" activeClassName="active-link">
+          <NavLink exact to="/todos" className="nav-link" activeClassName="active-link">
             To dos
           </NavLink>
         </button>
@@ -87,7 +34,7 @@ export default App;
       ) : (
       <>
         <button>
-          <NavLink to="/sign-up" className="nav-link" activeClassName="active-link">
+          <NavLink to="/" className="nav-link" activeClassName="active-link">
             Sign Up
           </NavLink>
         </button>
@@ -99,5 +46,26 @@ export default App;
       </>
       )}
       </nav>
+      <Switch>
+        <Route exact path="/todos">
+          <TodoList user={user} />
+        </Route>
+        <Route path="/update-todo/:todoId">
+          <UpdateTodos user={user} />
+        </Route>
+        <Route exact path="/">
+          <SignUp handleLogin={handleLogin} />
+        </Route>
+        <Route exact path="/log-in">
+          <Login handleLogin={handleLogin} />
+        </Route>
+        <Route path="/log-out">
+        <Logout handleLogout={handleLogout} />
+        </Route>
+      </Switch>
+    </div>
+  );
+}
 
-*/
+
+export default App;

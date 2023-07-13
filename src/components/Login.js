@@ -6,9 +6,9 @@ function Login({handleLogin}) {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const login = async (email, password) => {
-
-    await fetch('http://localhost:5000/api/users/login', {
+    await fetch('https://todobackend-ew9a.onrender.com/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -17,12 +17,11 @@ function Login({handleLogin}) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setEmail('');
         setPassword('');
         handleLogin(data.user);
         localStorage.setItem('token', data.token); 
-        history.push('/');
+        history.push('/todos');
       })
       .catch((err) => {
         console.log(err.message);

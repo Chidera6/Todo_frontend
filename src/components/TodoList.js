@@ -11,7 +11,7 @@ function TodoList({ user }) {
 
   const addTodo = async (title, description, completed) => {
     try {
-      const response = await fetch('http://localhost:5000/api/tasks/create', {
+      const response = await fetch('https://todobackend-ew9a.onrender.com/api/tasks/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,11 +43,12 @@ function TodoList({ user }) {
 
   useEffect(() => {
     fetchTodos();
-  }, [user]);
+    console.log("use effect is printing")
+  },[]);
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/tasks/', {
+      const response = await fetch('https://todobackend-ew9a.onrender.com/api/tasks/', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -66,7 +67,7 @@ function TodoList({ user }) {
 
   const handleDelete = async (taskId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+      const response = await fetch(`https://todobackend-ew9a.onrender.com/api/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

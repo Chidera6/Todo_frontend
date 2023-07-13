@@ -9,7 +9,7 @@ function SignUp({handleLogin}) {
   const [password, setPassword] = useState('');
 
   const signup = async (username, email, password) => {
-    await fetch('http://localhost:5000/api/users/signup', {
+    await fetch('https://todobackend-ew9a.onrender.com/api/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,8 +23,11 @@ function SignUp({handleLogin}) {
         setPassword('');
         handleLogin(data.user);
         localStorage.setItem('token', data.token); 
-        history.push('/');
+        history.push('/todos');
       })
+      .catch((err) => {
+        console.log(err.message);
+     });
   };
 
   const handleSubmit = (e) => {
