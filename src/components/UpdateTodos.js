@@ -11,7 +11,7 @@ function UpdateTodos({ user }) {
   
   const fetchTodos = async () => {
     try {
-      const response = await fetch(`https://todobackend-ew9a.onrender.com/${todoId}`, {
+      const response = await fetch(`https://todobackend-ew9a.onrender.com/api/tasks/${todoId}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -37,7 +37,7 @@ function UpdateTodos({ user }) {
 
   const updateTodo = async () => {
     try {
-      const response = await fetch(`https://todobackend-ew9a.onrender.com/${todoId}`, {
+      const response = await fetch(`https://todobackend-ew9a.onrender.com/api/tasks/${todoId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
