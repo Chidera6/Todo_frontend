@@ -32,8 +32,8 @@ function UpdateTodos({ user }) {
 
   useEffect(() => {
     fetchTodos();
-    console.log("use effect is prinitng");
-  }, [user]);
+    // eslint-disable-next-line
+  }, []);
 
   const updateTodo = async () => {
     try {

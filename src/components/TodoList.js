@@ -43,7 +43,7 @@ function TodoList({ user }) {
 
   useEffect(() => {
     fetchTodos();
-    console.log("use effect is printing")
+  // eslint-disable-next-line
   },[]);
 
   const fetchTodos = async () => {
